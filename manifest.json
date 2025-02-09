@@ -1,0 +1,10 @@
+{
+    "name": "Latif’s Speed Racer",
+    "short_name": "Speed Racer",
+    "description": "Dodge traffic and survive as long as possible!",
+    "start_url": "index.html",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#ffcc00",
+    "orientation": "portrait"
+}
