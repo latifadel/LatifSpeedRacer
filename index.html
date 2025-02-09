@@ -1,25 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Latif's Speed Racer</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
+  <meta charset="UTF-8" />
+  <meta name="description" content="Speed Racer Game - A thrilling top-down racer you can install as a PWA.">
+  <meta name="keywords" content="Speed,Racer,Game,HTML,JavaScript,CSS,PWA">
+  <meta name="author" content="Your Name">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  
+  <!-- PWA iPhone meta tags for full-screen experience -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <title>Speed Racer Game</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Manifest for PWA -->
+  <link rel="manifest" href="manifest.json">
+  
+  <!-- iPhone/iPad icon placeholders - replace with your own icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-icon-180.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="icons/apple-icon-152.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="icons/apple-icon-167.png">
+
+  <!-- Favicon - replace with your own if desired -->
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
 </head>
 <body>
-    <div class="game-container">
-        <h1>Latif's Speed Racer 🏎️</h1>
-        <p>Use arrow keys (or swipe) to dodge traffic and stay alive!</p>
-        
-        <canvas id="gameCanvas"></canvas>
-        
-        <div class="controls">
-            <button id="start-button">Start Game</button>
-            <p>Score: <span id="score">0</span></p>
-        </div>
+  <!-- Game Container -->
+  <div class="game-container">
+    <!-- Title / Header Section -->
+    <header class="game-header">
+      <h1>SPEED RACER</h1>
+      <button id="installBtn" class="install-button" hidden>Install App</button>
+    </header>
+
+    <!-- Instructions / Overlay (Shown at game start) -->
+    <div id="startScreen" class="overlay active">
+      <h2>Welcome to Speed Racer!</h2>
+      <p>
+        Control your car with the arrow keys or touch controls (on mobile). <br>
+        Avoid obstacles and survive as long as possible. <br>
+        Press <strong>Start</strong> to begin your race!
+      </p>
+      <button id="startButton" class="btn large-btn">Start Game</button>
     </div>
-    
-    <script src="script.js"></script>
+
+    <!-- Game Over Screen / Overlay -->
+    <div id="gameOverScreen" class="overlay">
+      <h2>Game Over!</h2>
+      <p id="finalScoreText">Your final score:</p>
+      <button id="restartButton" class="btn large-btn">Play Again</button>
+    </div>
+
+    <!-- Score Board -->
+    <div class="score-panel">
+      <div class="score-label">Score: <span id="scoreValue">0</span></div>
+      <div class="best-score-label">Best: <span id="bestScoreValue">0</span></div>
+    </div>
+
+    <!-- Main Game Canvas -->
+    <canvas id="gameCanvas" width="400" height="600">
+      Your browser does not support HTML5 Canvas.
+    </canvas>
+
+    <!-- Touch Control Buttons (optional) -->
+    <div class="touch-controls">
+      <button id="leftBtn" class="touch-btn">◀</button>
+      <button id="rightBtn" class="touch-btn">▶</button>
+    </div>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+  <script>
+    // Register the Service Worker to enable PWA features
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
+        .then(reg => {
+          console.log('Service Worker registered successfully.', reg);
+        })
+        .catch(err => {
+          console.log('Service Worker registration failed:', err);
+        });
+      });
+    }
+  </script>
 </body>
 </html>
