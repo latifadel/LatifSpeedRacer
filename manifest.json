@@ -1,10 +1,36 @@
 {
-    "name": "Latif’s Speed Racer",
-    "short_name": "Speed Racer",
-    "description": "Dodge traffic and survive as long as possible!",
-    "start_url": "index.html",
-    "display": "standalone",
-    "background_color": "#000000",
-    "theme_color": "#ffcc00",
-    "orientation": "portrait"
+  "name": "Speed Racer Game",
+  "short_name": "Racer",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0d0d0d",
+  "theme_color": "#ffcc00",
+  "description": "A thrilling top-down racing game.",
+  "icons": [
+    {
+      "src": "icons/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/apple-icon-152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/apple-icon-167.png",
+      "sizes": "167x167",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/apple-icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
 }
