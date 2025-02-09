@@ -2,211 +2,114 @@
 <html lang="en">
 <head>
   <!-- 
-    index.html for Speed Racer Game
-    This file includes:
-    - meta tags
-    - layout structure
-    - many placeholders to inflate line count
-    - PWA-related tags (manifest link, Apple meta, etc.)
-    - Additional optional sections for extended visuals or future expansions.
-    -------------------------------------------------------------------------
-    NOTE: Many lines below are repeated or heavily commented 
-    to ensure at least 1000 lines. 
+    index.html for Speed Racer (Minimal)
+    iPhone-friendly meta tags + PWA manifest
   -->
   <meta charset="UTF-8" />
-  <meta name="description" content="Speed Racer Game - A thrilling top-down racer you can install as a PWA. Enhanced with longer code for demonstration." />
-  <meta name="keywords" content="Speed, Racer, Game, HTML, JavaScript, CSS, PWA, Racing, Car" />
-  <meta name="author" content="Your Name" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <meta name="description" content="Speed Racer Game - Minimal top-down racer (no external images/audio).">
+  <meta name="keywords" content="Speed,Racer,Game,HTML,JavaScript,CSS,PWA">
+  <meta name="author" content="Your Name">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
   <!-- PWA iPhone meta tags for full-screen experience -->
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-  <title>Speed Racer Game - Extended Version</title>
+  <title>Speed Racer - Minimal</title>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="style.css" />
+  <!-- Link to CSS -->
+  <link rel="stylesheet" href="style.css">
 
   <!-- Manifest for PWA -->
-  <link rel="manifest" href="manifest.json" />
-
-  <!-- iPhone/iPad icons (placeholders) -->
-  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-icon-180.png" />
-  <link rel="apple-touch-icon" sizes="152x152" href="icons/apple-icon-152.png" />
-  <link rel="apple-touch-icon" sizes="167x167" href="icons/apple-icon-167.png" />
-
-  <!-- Favicon placeholders -->
-  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png" />
+  <link rel="manifest" href="manifest.json">
+  
+  <!-- Minimal Favicon placeholders (optional) -->
+  <link rel="icon" href="icons/favicon-32x32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="icons/favicon-16x16.png" sizes="16x16" type="image/png">
 </head>
+
 <body>
 
   <!-- 
-    BODY CONTENT START 
-    The main container for the Speed Racer game with an upgraded layout, 
-    multiple sections, menus, and placeholders for expansions.
+    Header / Nav 
+    - Contains a custom inline SVG logo
+    - Home link that scrolls up
+    - No social or external links
   -->
+  <header class="top-header">
+    <div class="logo-section">
+      <!-- Simple Inline SVG as our "logo" -->
+      <svg width="50" height="50" viewBox="0 0 50 50" aria-label="Game Logo">
+        <circle cx="25" cy="25" r="24" fill="#ffcc00" stroke="#000" stroke-width="2"/>
+        <text x="50%" y="55%" text-anchor="middle" font-size="20" fill="#000" font-weight="bold" font-family="Arial">SR</text>
+      </svg>
+      <h1 class="game-title">SPEED RACER</h1>
+    </div>
 
-  <!-- Main Container / Layout Wrapper -->
-  <div class="layout-wrapper">
+    <nav class="nav-options">
+      <a href="#" class="nav-link" id="homeLink">Home</a>
+    </nav>
 
-    <!-- 
-      Navigation or Top Banner 
-      This can be used for a top nav menu or game branding
-    -->
-    <header class="top-header">
-      <div class="logo-section">
-        <img src="icons/apple-icon-180.png" alt="Game Logo" class="game-logo"/>
-        <h1 class="game-title">SPEED RACER - EXTENDED EDITION</h1>
-      </div>
-      <nav class="nav-options">
-        <!-- Optionally, you can add links or anchor placeholders here -->
-        <a href="#" class="nav-link">Home</a>
-        <a href="#" class="nav-link">Store</a>
-        <a href="#" class="nav-link">About</a>
-        <a href="#" class="nav-link">Contact</a>
-      </nav>
-      <button id="installBtn" class="install-button" hidden>Install App</button>
-    </header>
-
-    <!-- 
-      Side Panel (Optional)
-      This could be used for a scoreboard, extra game info, or advertisements if needed 
-    -->
-    <aside class="side-panel left-panel">
-      <h2>Side Panel</h2>
-      <p>Extra information can go here.</p>
-      <ul>
-        <li>Game tips</li>
-        <li>Controls guide</li>
-        <li>News or updates</li>
-      </ul>
-    </aside>
-
-    <!-- 
-      Another Side Panel on the right 
-      Just to showcase more layout possibilities
-    -->
-    <aside class="side-panel right-panel">
-      <h2>Right Side Panel</h2>
-      <p>
-        Maybe show a leaderboard or advertisement area here. 
-        Keep your design flexible.
-      </p>
-    </aside>
-
-    <!-- 
-      Core Game Container 
-      This is where the game canvas, overlays, score, etc. are placed.
-      We'll put them inside a central container.
-    -->
-    <main class="game-container">
-      <section class="game-header-section">
-        <h2 class="game-subtitle">Ultimate Racing Challenge</h2>
-
-        <!-- Extra game info: 
-             You can place user stats, currency, or in-game shop icons 
-        -->
-        <div class="user-stats">
-          <div class="stat-block">
-            <span class="stat-label">Coins:</span>
-            <span class="stat-value" id="coinCount">0</span>
-          </div>
-          <div class="stat-block">
-            <span class="stat-label">Lives:</span>
-            <span class="stat-value" id="lifeCount">3</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- Start Screen Overlay -->
-      <div id="startScreen" class="overlay active">
-        <h2>WELCOME TO SPEED RACER</h2>
-        <p>
-          Control your sleek racing car with arrow keys or on-screen touch controls.<br>
-          Dodge obstacles, collect coins, upgrade your car, and race to the top of the leaderboard!
-        </p>
-        <button id="startButton" class="btn large-btn">Start Game</button>
-      </div>
-
-      <!-- Settings Screen Overlay (Optional) -->
-      <div id="settingsScreen" class="overlay">
-        <h2>SETTINGS</h2>
-        <div class="settings-options">
-          <label for="musicToggle">Music:</label>
-          <input type="checkbox" id="musicToggle" checked />
-          <br><br>
-          <label for="sfxToggle">Sound Effects:</label>
-          <input type="checkbox" id="sfxToggle" checked />
-          <br><br>
-          <label for="difficultySelect">Difficulty:</label>
-          <select id="difficultySelect">
-            <option value="easy">Easy</option>
-            <option value="normal" selected>Normal</option>
-            <option value="hard">Hard</option>
-          </select>
-        </div>
-        <button id="closeSettings" class="btn large-btn">Close Settings</button>
-      </div>
-
-      <!-- Game Over Screen Overlay -->
-      <div id="gameOverScreen" class="overlay">
-        <h2>GAME OVER!</h2>
-        <p id="finalScoreText">Your final score:</p>
-        <button id="restartButton" class="btn large-btn">Play Again</button>
-      </div>
-
-      <!-- Pause Screen Overlay -->
-      <div id="pauseScreen" class="overlay">
-        <h2>GAME PAUSED</h2>
-        <button id="resumeButton" class="btn large-btn">Resume</button>
-      </div>
-
-      <!-- HUD / Score Board -->
-      <div class="score-panel">
-        <div class="score-label">
-          Score: <span id="scoreValue">0</span>
-        </div>
-        <div class="best-score-label">
-          Best: <span id="bestScoreValue">0</span>
-        </div>
-      </div>
-
-      <!-- Canvas Container -->
-      <div class="canvas-container">
-        <canvas id="gameCanvas" width="400" height="600">
-          Your browser does not support HTML5 Canvas.
-        </canvas>
-      </div>
-
-      <!-- Touch Control Buttons -->
-      <div class="touch-controls">
-        <button id="leftBtn" class="touch-btn">◀</button>
-        <button id="rightBtn" class="touch-btn">▶</button>
-        <button id="upBtn" class="touch-btn">▲</button>
-        <button id="downBtn" class="touch-btn">▼</button>
-      </div>
-    </main>
-
-    <!-- 
-      Footer
-      Could include contact info, disclaimers, or quick links
-    -->
-    <footer class="game-footer">
-      <p>&copy; 2025 - Speed Racer Extended. All rights reserved.</p>
-      <div class="social-links">
-        <a href="#" class="social-icon">Twitter</a>
-        <a href="#" class="social-icon">Facebook</a>
-        <a href="#" class="social-icon">Instagram</a>
-      </div>
-    </footer>
-  </div>
+    <button id="installBtn" class="install-button" hidden>Install App</button>
+  </header>
 
   <!-- 
-    END OF MAIN BODY CONTENT
-    Additional placeholders to fill lines if needed
+    Main Game Container 
+    - Start Overlay
+    - Game Over Overlay
+    - Scoreboard
+    - Canvas
+    - Touch controls
   -->
+  <main class="game-container">
+
+    <!-- Start Screen Overlay -->
+    <div id="startScreen" class="overlay active">
+      <h2>WELCOME TO SPEED RACER</h2>
+      <p>
+        Control your car using arrow keys (desktop) or touch buttons (mobile).<br>
+        Avoid obstacles and score as many points as possible.<br>
+        Press <strong>Start</strong> to begin the game!
+      </p>
+      <button id="startButton" class="btn large-btn">Start Game</button>
+    </div>
+
+    <!-- Game Over Screen Overlay -->
+    <div id="gameOverScreen" class="overlay">
+      <h2>GAME OVER!</h2>
+      <p id="finalScoreText">Your final score: 0</p>
+      <button id="restartButton" class="btn large-btn">Play Again</button>
+    </div>
+
+    <!-- Scoreboard -->
+    <div class="score-panel">
+      <div class="score-label">
+        Score: <span id="scoreValue">0</span>
+      </div>
+      <div class="best-score-label">
+        Best: <span id="bestScoreValue">0</span>
+      </div>
+    </div>
+
+    <!-- The Canvas -->
+    <canvas id="gameCanvas" width="400" height="600">
+      Your browser does not support HTML5 Canvas.
+    </canvas>
+
+    <!-- Touch controls (hidden by default on desktop, visible on mobile) -->
+    <div class="touch-controls">
+      <button id="leftBtn" class="touch-btn">◀</button>
+      <button id="rightBtn" class="touch-btn">▶</button>
+      <button id="upBtn" class="touch-btn">▲</button>
+      <button id="downBtn" class="touch-btn">▼</button>
+    </div>
+
+  </main>
+
+  <!-- Footer (Optional) -->
+  <footer class="game-footer">
+    <p>&copy; 2025 - Speed Racer Minimal. All rights reserved.</p>
+  </footer>
 
   <!-- Script references -->
   <script src="script.js"></script>
@@ -215,128 +118,12 @@
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
         navigator.serviceWorker.register("service-worker.js")
-          .then((reg) => {
-            console.log("Service Worker registered successfully.", reg);
-          })
-          .catch((err) => {
-            console.log("Service Worker registration failed:", err);
-          });
+          .then(reg => console.log("Service Worker registered.", reg))
+          .catch(err => console.log("Service Worker registration failed:", err));
       });
     }
   </script>
 
-  <!-- 
-    Below is a large commented section purely to increase the line count
-    for demonstration. You can remove these in a real production environment.
-  -->
-
-  <!-- 
-  -------------------------------------------------------------------------------------------------
-  EXTRA COMMENTED AREA #1: 
-  This is an extended commented block to inflate the line count beyond 1000 lines.
-  You can add additional disclaimers, credits, or repeated code sections for your actual project.
-  -------------------------------------------------------------------------------------------------
-  -->
-  <!--
-  This game is designed to be a top-down racing game that includes:
-  - Car sprite-based movement
-  - Horizontal and vertical movement controls
-  - Obstacle generation
-  - Coins or currency pickup
-  - Various difficulty settings
-  - Music and sound effect toggles
-  - Pausing and resuming
-  - A scoreboard system
-  - PWA integration for offline play
-
-  By default, we have provided placeholders for advanced functionality like:
-  - Upgrades
-  - Different car skins
-  - Mobile-friendly controls with touch events
-  - Possibly a server-based leaderboard
-
-  The user can choose to expand the functionality as needed:
-  - Additional backgrounds (sky, city, desert, etc.)
-  - Additional obstacles with different speeds and collision boxes
-  - More UI panels (inventory, shop, achievements, etc.)
-  - Monetization strategies (e.g., ads or in-app purchases)
-
-  We added side-panels (left and right) to demonstrate a more flexible layout.
-
-  The style.css file can easily be extended with any modern design frameworks or personal styling preferences.
-
-  The script.js file is likewise extended with extra modules, 
-  e.g. a coin manager, difficulty manager, audio manager, collision manager, etc.
-
-  NOTE: For iPhone installation, open in Safari and use "Add to Home Screen"
-  or utilize the built-in prompt if the PWA installation criteria are met (e.g., served over HTTPS).
-
-  Thank you for using this super-extended demonstration code for Speed Racer!
-
-  Enjoy customizing your own version of the game.
-  -->
-
-  <!-- 
-  EXTRA COMMENTED AREA #2:
-  More placeholder lines below...
-  -->
-
-  <!--
-  For advanced customization:
-  1. Integrate advanced physics or a 2D engine (like matter.js or p2.js).
-  2. Add multiplayer features via WebSockets or WebRTC.
-  3. Implement real-time leaderboards with a backend.
-  4. Integrate new tracks, track generation, or drifting mechanics.
-
-  This codebase has endless possibilities for expansion!
-  -->
-
-  <!-- Additional placeholder lines to reach 1000 lines in index.html -->
-  <!-- (Feel free to remove these placeholders in actual usage) -->
-
-  <!-- 
-  LINE FILLER: 1
-  LINE FILLER: 2
-  LINE FILLER: 3
-  LINE FILLER: 4
-  LINE FILLER: 5
-  LINE FILLER: 6
-  LINE FILLER: 7
-  LINE FILLER: 8
-  LINE FILLER: 9
-  LINE FILLER: 10
-  LINE FILLER: 11
-  LINE FILLER: 12
-  LINE FILLER: 13
-  LINE FILLER: 14
-  LINE FILLER: 15
-  ...
-  (Repeated to push line count over 1000)
-  -->
-
-  <!-- We'll insert a big repeated block to ensure we surpass 1000 lines. -->
-
-  <!-- REPEAT BLOCK START -->
-  <!-- 
-  This is repeated block #1 
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-  This is repeated block #2 
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-  This is repeated block #3 
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-  This is repeated block #4 
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-  This is repeated block #5 
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-  ...
-  -->
-  
-  <!-- You can copy-paste these blocks until you exceed 1000 lines in this HTML file. -->
-
-  <!-- 
-  Since we can't literally show 1000 repeated lines in a single snippet 
-  (it might be truncated by the chat), 
-  assume we repeated enough blocks to push index.html over 1000 lines. 
-  -->
 </body>
 </html>
+
