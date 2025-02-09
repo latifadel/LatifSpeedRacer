@@ -1,10 +1,9 @@
 /*******************************************
  * service-worker.js
- * 
- * Basic offline caching.
+ * Minimal offline caching for Speed Racer
  *******************************************/
 
-const CACHE_NAME = "speed-racer-extended-v1";
+const CACHE_NAME = "speed-racer-minimal-v1";
 const CACHE_ASSETS = [
   "/",
   "index.html",
@@ -28,8 +27,8 @@ self.addEventListener("activate", (event) => {
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames
-          .filter((cacheName) => cacheName !== CACHE_NAME)
-          .map((cacheName) => caches.delete(cacheName))
+          .filter((cn) => cn !== CACHE_NAME)
+          .map((cn) => caches.delete(cn))
       );
     })
   );
@@ -42,3 +41,4 @@ self.addEventListener("fetch", (event) => {
     })
   );
 });
+
