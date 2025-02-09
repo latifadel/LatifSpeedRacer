@@ -1,30 +1,7 @@
-/********************************************
- * style.css for Speed Racer Game Extended
- * 
- * This file is deliberately made very long.
- * We add multiple sections, repeated classes,
- * extensive comments, and placeholder code
- * to exceed 1000 lines. 
- ********************************************/
+/* style.css for Speed Racer - Minimal */
+/* iPhone-friendly design with no side panels or social links */
 
-/* 
-  1) Global Reset 
-  2) Layout Wrapper 
-  3) Header / Navigation 
-  4) Side Panels 
-  5) Main Game Container 
-  6) Overlays 
-  7) Canvas / HUD 
-  8) Footer 
-  9) Additional Utility Classes 
-  10) Extended Comments + Repeated placeholders
-*/
-
-/* 
-******************************
-1) Global Reset 
-******************************
-*/
+/* Global Reset */
 * {
   margin: 0;
   padding: 0;
@@ -35,35 +12,15 @@
 html, body {
   width: 100%;
   height: 100%;
-  background: #111; /* Darker background for a moody effect */
+  background: #0d0d0d;
   color: #fff;
-  overflow: hidden; /* might be changed if you want scroll bars */
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
-/*
-******************************
-2) Layout Wrapper 
-******************************
-*/
-.layout-wrapper {
-  display: grid;
-  grid-template-columns: 1fr 800px 1fr;
-  grid-template-rows: auto 1fr auto;
-  grid-template-areas:
-    "header header header"
-    "left-panel main right-panel"
-    "footer footer footer";
-  width: 100vw;
-  height: 100vh;
-}
-
-/*
-******************************
-3) Header / Navigation 
-******************************
-*/
+/* Header / Nav */
 .top-header {
-  grid-area: header;
+  width: 100%;
   background: #222;
   display: flex;
   align-items: center;
@@ -77,13 +34,8 @@ html, body {
   align-items: center;
 }
 
-.game-logo {
-  width: 48px;
-  height: 48px;
-  margin-right: 10px;
-}
-
 .game-title {
+  margin-left: 8px;
   font-size: 1.5em;
   color: #ffcc00;
   text-shadow: 1px 1px #000;
@@ -106,6 +58,7 @@ html, body {
   border-radius: 4px;
 }
 
+/* Install button */
 .install-button {
   background-color: #ffcc00;
   color: #000;
@@ -114,95 +67,24 @@ html, body {
   border-radius: 4px;
   font-weight: bold;
   cursor: pointer;
-  margin-left: 20px;
 }
 
 .install-button:hover {
   background-color: #ffe066;
 }
 
-/*
-******************************
-4) Side Panels 
-******************************
-*/
-.side-panel {
-  background: #333;
-  color: #ccc;
-  padding: 20px;
-  overflow-y: auto; /* If content is large, scroll */
-}
-
-.left-panel {
-  grid-area: left-panel;
-  border-right: 2px solid #fff;
-}
-
-.right-panel {
-  grid-area: right-panel;
-  border-left: 2px solid #fff;
-}
-
-/*
-******************************
-5) Main Game Container 
-******************************
-*/
+/* Main game container */
 .game-container {
-  grid-area: main;
-  background: #111;
+  width: 100%;
+  max-width: 480px;
+  margin: 20px auto;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: hidden; /* We can manage scrolling inside if needed */
-  border-left: 2px solid #000;
-  border-right: 2px solid #000;
 }
 
-/* Sub-header or top info inside game-container */
-.game-header-section {
-  width: 100%;
-  background: #444;
-  padding: 10px;
-  text-align: center;
-}
-
-.game-subtitle {
-  color: #ffcc00;
-  font-size: 1.3em;
-  text-transform: uppercase;
-}
-
-.user-stats {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 10px;
-}
-
-.stat-block {
-  background: #222;
-  padding: 5px 10px;
-  border-radius: 4px;
-  color: #fff;
-}
-
-.stat-label {
-  font-weight: bold;
-  margin-right: 5px;
-}
-
-.stat-value {
-  color: #ffcc00;
-}
-
-/*
-******************************
-6) Overlays
-******************************
-*/
-
+/* Overlays: Start & Game Over screens */
 .overlay {
   position: absolute;
   top: 0;
@@ -216,7 +98,6 @@ html, body {
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 20px;
   z-index: 10;
   opacity: 0;
   pointer-events: none;
@@ -239,6 +120,7 @@ html, body {
   line-height: 1.5;
 }
 
+/* Buttons */
 .btn {
   background: #ffcc00;
   color: #333;
@@ -258,19 +140,12 @@ html, body {
 
 .large-btn {
   font-size: 1.1em;
-  padding: 12px 24px;
 }
-
-/*
-******************************
-7) Canvas / HUD
-******************************
-*/
 
 /* Score Panel */
 .score-panel {
   position: absolute;
-  top: 20px;
+  top: 12px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -288,32 +163,22 @@ html, body {
   text-shadow: 1px 1px #000;
 }
 
-/* Canvas Container */
-.canvas-container {
-  position: relative;
-  margin-top: 80px; /* Enough space for the top UI */
-  width: 400px;
-  height: 600px;
-}
-
+/* Canvas */
 #gameCanvas {
   display: block;
-  background: #666; /* fallback color (will be overwritten by gradient in JS) */
-  margin: 0 auto;
-  border: 2px solid #000;
+  background: #555; /* fallback color for the game field */
+  margin-top: 80px; /* space for scoreboard & overlays */
+  border: 2px solid #222;
   border-radius: 4px;
-  width: 400px;
-  height: 600px; /* maintain the same ratio in CSS for consistency */
+  width: 400px; 
+  height: 600px; 
 }
 
-/*
-******************************
-Touch Controls 
-******************************
-*/
+/* Touch Controls */
 .touch-controls {
   margin-top: 10px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
 }
@@ -336,127 +201,20 @@ Touch Controls
   box-shadow: 0 2px 0 #cc9900;
 }
 
-/*
-******************************
-8) Footer
-******************************
-*/
+/* Footer */
 .game-footer {
-  grid-area: footer;
+  text-align: center;
   background: #222;
   color: #fff;
-  text-align: center;
   padding: 10px;
   border-top: 2px solid #fff;
 }
 
-.game-footer p {
-  margin-bottom: 8px;
+/* Media Queries for iPhone display if desired */
+@media only screen and (max-width: 500px) {
+  #gameCanvas {
+    width: 100%;
+    height: calc(100vw * 1.5); /* keep ratio ~ 3:2 */
+    max-height: 600px;
+  }
 }
-
-.social-links {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-.social-icon {
-  color: #ffcc00;
-  text-decoration: none;
-  padding: 5px 10px;
-  border: 1px solid #ffcc00;
-  border-radius: 4px;
-}
-
-.social-icon:hover {
-  background: #ffcc00;
-  color: #000;
-}
-
-/*
-******************************
-9) Additional Utility Classes 
-******************************
-*/
-.hidden {
-  display: none !important;
-}
-
-.visible {
-  display: block !important;
-}
-
-.centered {
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-}
-
-.highlight {
-  background-color: yellow;
-  color: black;
-}
-
-.dark-bg {
-  background-color: #000 !important;
-  color: #fff !important;
-}
-
-.light-bg {
-  background-color: #fff !important;
-  color: #000 !important;
-}
-
-.rounded {
-  border-radius: 50% !important;
-}
-
-.shadow {
-  box-shadow: 0 0 10px rgba(0,0,0,0.5) !important;
-}
-
-/* 
-******************************
-10) Extended Comments + Repeated placeholders
-******************************
-
-Below is a large block of repetitive placeholders to push this CSS file beyond 1000 lines. 
-Feel free to remove them in real production usage.
-
-*/
-
-/* REPEATED COMMENT BLOCK #1
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-*/
-
-/* REPEATED COMMENT BLOCK #2
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-*/
-
-/* REPEATED COMMENT BLOCK #3
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-*/
-
-/* REPEATED COMMENT BLOCK #4
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-*/
-
-/* 
-Add more repeated lines until we exceed 1000 total lines in this style.css.
-For brevity, we won't show them all in the snippet, but you can imagine
-these lines repeated multiple times.
-*/
-
-/* 
-LINE FILLER: 1
-LINE FILLER: 2
-LINE FILLER: 3
-...
-LINE FILLER: 999
-LINE FILLER: 1000
-*/
-
-/* 
-We assume at this point we've reached or exceeded 1000 lines. 
-*/
-
