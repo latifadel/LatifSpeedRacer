@@ -1,67 +1,191 @@
-/* General styling */
+/* style.css */
+
+/* Global Reset / Base Styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Arial", sans-serif;
+}
+
+/* Body / Main Page Styling */
 body {
-    font-family: 'Arial', sans-serif;
-    text-align: center;
-    background: linear-gradient(to bottom, #000000, #2a2a2a);
-    color: white;
-    margin: 0;
-    padding: 0;
+  background: #0d0d0d;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 /* Game Container */
 .game-container {
+  position: relative;
+  width: 400px;
+  height: 680px;
+  background: #222;
+  border: 2px solid #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+/* Header */
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #444;
+  padding: 10px 15px;
+  border-bottom: 2px solid #fff;
+}
+
+.game-header h1 {
+  font-size: 1.2em;
+  margin: 0;
+  color: #ffcc00;
+  letter-spacing: 2px;
+  text-shadow: 1px 1px #000;
+}
+
+/* Install Button */
+.install-button {
+  background-color: #ffcc00;
+  color: #000;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.install-button:hover {
+  background-color: #ffe066;
+}
+
+/* Overlay Screens */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(51, 51, 51, 0.8);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.overlay h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px #000;
+}
+
+.overlay p {
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* Buttons */
+.btn {
+  background: #ffcc00;
+  color: #333;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: background 0.2s;
+}
+
+.btn:hover {
+  background: #ffe066;
+}
+
+.large-btn {
+  font-size: 1.1em;
+  padding: 12px 24px;
+}
+
+/* Score Panel */
+.score-panel {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  color: #fff;
+  font-size: 1.2em;
+  z-index: 2;
+  text-shadow: 1px 1px #000;
+}
+
+.score-label,
+.best-score-label {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+/* Canvas */
+#gameCanvas {
+  display: block;
+  background: #555; /* fallback if no gradient or image is used */
+  margin: 0 auto;
+  margin-top: 70px;
+  border: 2px solid #222;
+  border-radius: 4px;
+}
+
+/* Touch Controls (only show on mobile or if user wants them) */
+.touch-controls {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.touch-btn {
+  background: #ffcc00;
+  color: #333;
+  border: none;
+  padding: 20px;
+  border-radius: 50%;
+  font-size: 1.5em;
+  font-weight: bold;
+  box-shadow: 0 4px 0 #cc9900;
+  transition: background 0.1s, transform 0.1s;
+  touch-action: none;
+}
+
+.touch-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #cc9900;
+}
+
+@media screen and (max-width: 500px) {
+  .game-container {
     width: 100%;
-    max-width: 420px;
-    margin: 0 auto;
-    position: relative;
-    background: #111;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
-}
-
-/* Game Title */
-h1 {
-    font-size: 26px;
-    text-transform: uppercase;
-    color: #ffcc00;
-    text-shadow: 2px 2px 5px rgba(255, 204, 0, 0.7);
-}
-
-/* Canvas Styling */
-canvas {
-    background: url('https://source.unsplash.com/400x600/?road,highway') no-repeat center;
-    background-size: cover;
-    border: 2px solid white;
-    display: block;
-    margin: 10px auto;
-    border-radius: 5px;
-}
-
-/* Controls */
-.controls {
-    margin-top: 10px;
-}
-
-button {
-    padding: 10px 20px;
-    font-size: 18px;
-    cursor: pointer;
-    background: #ffcc00;
+    height: 100%;
     border: none;
-    color: black;
-    font-weight: bold;
-    border-radius: 5px;
-    transition: 0.3s;
-}
-
-button:hover {
-    background: #ff9900;
-}
-
-/* Score Display */
-#score {
-    font-size: 20px;
-    font-weight: bold;
-    color: #ffffff;
+    border-radius: 0;
+  }
 }
