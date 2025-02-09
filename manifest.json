@@ -1,11 +1,11 @@
 {
-  "name": "Speed Racer Game",
+  "name": "Speed Racer Minimal",
   "short_name": "Racer",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#0d0d0d",
   "theme_color": "#ffcc00",
-  "description": "A thrilling top-down racing game.",
+  "description": "Minimal top-down racer with PWA support, no external media.",
   "icons": [
     {
       "src": "icons/favicon-16x16.png",
@@ -16,21 +16,7 @@
       "src": "icons/favicon-32x32.png",
       "sizes": "32x32",
       "type": "image/png"
-    },
-    {
-      "src": "icons/apple-icon-152.png",
-      "sizes": "152x152",
-      "type": "image/png"
-    },
-    {
-      "src": "icons/apple-icon-167.png",
-      "sizes": "167x167",
-      "type": "image/png"
-    },
-    {
-      "src": "icons/apple-icon-180.png",
-      "sizes": "180x180",
-      "type": "image/png"
     }
   ]
 }
+
