@@ -1,11 +1,13 @@
 /*******************************************
- * script.js (Updated)
- * Speed Racer - Minimal with Car Shapes
+ * script.js
+ * Minimal Speed Racer
  * 
- * - Uses Canvas API to render cars (not just rectangles).
- * - Player car has a windshield and wheels.
- * - Obstacle cars have a different color.
- * - Game logic remains the same.
+ * - No external images or audio used.
+ * - Rectangles for player and obstacles.
+ * - Simple collision detection.
+ * - Start and Game Over overlays.
+ * - Score and localStorage best score.
+ * - iPhone friendly with touch controls.
  *******************************************/
 
 // Canvas setup
@@ -23,17 +25,17 @@ let score = 0;
 let bestScore = 0;
 let frameCount = 0;
 
-// Player Car
+// Player
 const player = {
-  width: 50, // Wider for a better look
+  width: 40,
   height: 80,
-  x: W / 2 - 25,
-  y: H - 120,
+  x: W / 2 - 20,
+  y: H - 100,
   speed: 6,
-  color: "#00ff00" // Green player car
+  color: "#00ff00"
 };
 
-// Obstacles (Enemy Cars)
+// Obstacles
 let obstacles = [];
 let obstacleSpeed = 5;
 let spawnInterval = 100;
@@ -57,7 +59,7 @@ function updateBestScore() {
 
 // Start Game
 function startGame() {
-  // Reset game
+  // Reset
   obstacles = [];
   score = 0;
   frameCount = 0;
@@ -122,8 +124,8 @@ function update() {
 function draw() {
   ctx.clearRect(0, 0, W, H);
   drawBackground();
-  drawPlayerCar();
-  drawObstacleCars();
+  drawPlayer();
+  drawObstacles();
 }
 
 // Background
@@ -146,64 +148,10 @@ function drawBackground() {
   ctx.setLineDash([]);
 }
 
-// Draw Player Car
-function drawPlayerCar() {
+// Player
+function drawPlayer() {
   ctx.fillStyle = player.color;
-  
-  // Rounded Rectangle (Car Body)
-  drawRoundedRect(player.x, player.y, player.width, player.height, 10);
-
-  // Windshield (Small Rectangle at Top)
-  ctx.fillStyle = "#000";
-  ctx.fillRect(player.x + 10, player.y + 10, player.width - 20, 10);
-
-  // Wheels (Circles)
-  ctx.fillStyle = "#222";
-  drawWheel(player.x + 5, player.y + 20);
-  drawWheel(player.x + player.width - 10, player.y + 20);
-  drawWheel(player.x + 5, player.y + player.height - 20);
-  drawWheel(player.x + player.width - 10, player.y + player.height - 20);
-}
-
-// Draw Enemy Cars
-function drawObstacleCars() {
-  for (let obs of obstacles) {
-    ctx.fillStyle = "#ff0000"; // Red enemy car
-    drawRoundedRect(obs.x, obs.y, obs.width, obs.height, 10);
-
-    // Windshield
-    ctx.fillStyle = "#000";
-    ctx.fillRect(obs.x + 10, obs.y + 10, obs.width - 20, 10);
-
-    // Wheels
-    ctx.fillStyle = "#222";
-    drawWheel(obs.x + 5, obs.y + 20);
-    drawWheel(obs.x + obs.width - 10, obs.y + 20);
-    drawWheel(obs.x + 5, obs.y + obs.height - 20);
-    drawWheel(obs.x + obs.width - 10, obs.y + obs.height - 20);
-  }
-}
-
-// Draw Rounded Rectangle (For Cars)
-function drawRoundedRect(x, y, width, height, radius) {
-  ctx.beginPath();
-  ctx.moveTo(x + radius, y);
-  ctx.lineTo(x + width - radius, y);
-  ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
-  ctx.lineTo(x + width, y + height - radius);
-  ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-  ctx.lineTo(x + radius, y + height);
-  ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
-  ctx.lineTo(x, y + radius);
-  ctx.quadraticCurveTo(x, y, x + radius, y);
-  ctx.fill();
-}
-
-// Draw Wheels (Circles)
-function drawWheel(x, y) {
-  ctx.beginPath();
-  ctx.arc(x, y, 5, 0, Math.PI * 2);
-  ctx.fill();
+  ctx.fillRect(player.x, player.y, player.width, player.height);
 }
 
 // Obstacles
@@ -215,14 +163,23 @@ function createObstacle() {
     x: randomX,
     y: -obstacleHeight,
     width: obstacleWidth,
-    height: obstacleHeight
+    height: obstacleHeight,
+    color: "#ff0000"
   });
+}
+
+function drawObstacles() {
+  for (let obs of obstacles) {
+    ctx.fillStyle = obs.color;
+    ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
+  }
 }
 
 // Collision detection
 function checkCollisions() {
   for (let i = 0; i < obstacles.length; i++) {
     if (isColliding(player, obstacles[i])) {
+      // Game Over
       stopGame();
       break;
     }
@@ -241,10 +198,60 @@ function isColliding(r1, r2) {
 // Event Listeners (Keyboard)
 document.addEventListener("keydown", e => {
   if (!gameRunning) return;
-  if (e.key === "ArrowLeft" || e.key === "a") player.x = Math.max(0, player.x - player.speed);
-  if (e.key === "ArrowRight" || e.key === "d") player.x = Math.min(W - player.width, player.x + player.speed);
+  switch (e.key) {
+    case "ArrowLeft":
+    case "a":
+      player.x -= player.speed;
+      if (player.x < 0) player.x = 0;
+      break;
+    case "ArrowRight":
+    case "d":
+      player.x += player.speed;
+      if (player.x + player.width > W) player.x = W - player.width;
+      break;
+    case "ArrowUp":
+    case "w":
+      player.y -= player.speed;
+      if (player.y < 0) player.y = 0;
+      break;
+    case "ArrowDown":
+    case "s":
+      player.y += player.speed;
+      if (player.y + player.height > H) player.y = H - player.height;
+      break;
+  }
+});
+
+// Touch controls
+function movePlayer(dx, dy) {
+  player.x += dx * player.speed;
+  player.y += dy * player.speed;
+  if (player.x < 0) player.x = 0;
+  if (player.x + player.width > W) player.x = W - player.width;
+  if (player.y < 0) player.y = 0;
+  if (player.y + player.height > H) player.y = H - player.height;
+}
+
+document.getElementById("leftBtn").addEventListener("touchstart", () => {
+  if (gameRunning) movePlayer(-1, 0);
+});
+document.getElementById("rightBtn").addEventListener("touchstart", () => {
+  if (gameRunning) movePlayer(1, 0);
+});
+document.getElementById("upBtn").addEventListener("touchstart", () => {
+  if (gameRunning) movePlayer(0, -1);
+});
+document.getElementById("downBtn").addEventListener("touchstart", () => {
+  if (gameRunning) movePlayer(0, 1);
 });
 
 // Start / Restart
 document.getElementById("startButton").addEventListener("click", startGame);
 document.getElementById("restartButton").addEventListener("click", startGame);
+
+// Home link - scroll to top
+document.getElementById("homeLink").addEventListener("click", e => {
+  e.preventDefault();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
