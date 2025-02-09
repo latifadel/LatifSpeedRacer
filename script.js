@@ -9,40 +9,35 @@ let player = { x: 180, y: 500, width: 40, height: 60, speed: 7 };
 let obstacles = [];
 let gameOver = false;
 let score = 0;
-let speedMultiplier = 0.005;
-let keys = {};
 let gameStarted = false;
-const roadLines = [];
-const carImg = new Image();
-carImg.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Circle-icons-car.svg/2048px-Circle-icons-car.svg.png";
 
 // Handle Keyboard Input
-window.addEventListener("keydown", (e) => keys[e.key] = true);
-window.addEventListener("keyup", (e) => keys[e.key] = false);
+document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft" && player.x > 10) player.x -= player.speed;
+    if (e.key === "ArrowRight" && player.x < canvas.width - player.width - 10) player.x += player.speed;
+});
 
 // Handle Touch Input for Mobile
-canvas.addEventListener("touchstart", handleTouch);
-
-function handleTouch(e) {
+canvas.addEventListener("touchstart", (e) => {
     let touchX = e.touches[0].clientX;
     if (touchX < canvas.width / 2) {
         player.x -= player.speed;
     } else {
         player.x += player.speed;
     }
-}
+});
 
-// Start Game
-document.getElementById("start-button").addEventListener("click", startGame);
-
-function startGame() {
-    gameStarted = true;
-    gameOver = false;
-    score = 0;
-    obstacles = [];
-    player.x = 180;
-    requestAnimationFrame(updateGame);
-}
+// Start Game When Button is Clicked
+document.getElementById("start-button").addEventListener("click", function () {
+    if (!gameStarted) {
+        gameStarted = true;
+        gameOver = false;
+        score = 0;
+        obstacles = [];
+        player.x = 180;
+        requestAnimationFrame(updateGame);
+    }
+});
 
 // Game Loop
 function updateGame() {
@@ -51,16 +46,13 @@ function updateGame() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Draw Player Car
-    ctx.drawImage(carImg, player.x, player.y, player.width, player.height);
-
-    // Move Player
-    if (keys["ArrowLeft"] && player.x > 10) player.x -= player.speed;
-    if (keys["ArrowRight"] && player.x < canvas.width - player.width - 10) player.x += player.speed;
+    ctx.fillStyle = "blue";
+    ctx.fillRect(player.x, player.y, player.width, player.height);
 
     // Generate Obstacles
     if (Math.random() < 0.02) {
         let obsX = Math.random() * (canvas.width - 40);
-        obstacles.push({ x: obsX, y: 0, width: 40, height: 60, speed: 2 + score * speedMultiplier });
+        obstacles.push({ x: obsX, y: 0, width: 40, height: 60, speed: 3 });
     }
 
     // Move Obstacles
@@ -78,6 +70,7 @@ function updateGame() {
         ) {
             gameOver = true;
             alert(`Game Over! Score: ${score}`);
+            gameStarted = false;
         }
 
         // Remove Off-Screen Obstacles
